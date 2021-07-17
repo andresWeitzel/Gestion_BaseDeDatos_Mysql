@@ -44,7 +44,12 @@ create table articulos(
 	id int auto_increment primary key,
 	categoria enum('CALZADO','ROPA','ACCESORIOS'),
 	descripcion varchar(35) not null,
-    precio double
+    precio double,
+    stock int,
+    stockMinimo int,
+    stockMaximo int,
+    costo double
+    
 	
 );
 
@@ -53,14 +58,10 @@ create table articulos_calzados_detalles(
 
 	id int auto_increment primary key,
 	idArticulo int not null,
-	color varchar(20),
+	tipo varchar(20) not null, -- Botas, zapatos, zapatillas
+	usabilidad varchar(20) not null, -- Deportivo, Urbano, Fino
 	numero char(3),
-	temporada enum('VERANO','INVIERNO'),
-	stock int,
-    stockMinimo int,
-    stockMaximo int,
-    costo double
-	
+	color varchar(20)
 
 );
 
@@ -68,15 +69,12 @@ create table articulos_ropa_detalles(
 
 	id int auto_increment primary key,
 	idArticulo int not null,
-	color varchar(20),
+	tipo varchar(20) not null, -- Abrigo, ropa interior, remera, etc
+	usabilidad varchar(20) not null, -- Fina, deportiva, de trabajo, etc
 	talle varchar(4),
 	temporada enum('VERANO','INVIERNO'),
-	stock int,
-    stockMinimo int,
-    stockMaximo int,
-    costo double
+	color varchar(20)
 	
-
 );
 
 
@@ -84,12 +82,8 @@ create table articulos_accesorios_detalles(
 
 	id int auto_increment primary key,
 	idArticulo int not null,
-	color varchar(20),
-	stock int,
-    stockMinimo int,
-    stockMaximo int,
-    costo double
-	
+	tipo varchar(20) not null, -- Cinturones, gafas de sol, sombreros, pañuelos, etc
+	color varchar(20)
 
 );
 
@@ -148,6 +142,28 @@ alter table articulos
     check (precio > 0 );
    
    
+   -- Restriccion CHECK stock
+alter table articulos
+	add constraint CHECK_articulos_stock
+    check (stock >= 0);
+
+-- Restriccion CHECK stockMaximo   
+alter table articulos
+	add constraint CHECK_articulos_stockMaximo
+    check (stockMaximo >= stockMinimo);
+
+   -- Restriccion CHECK stockMinimo   
+alter table articulos
+	add constraint CHECK_articulos_stockMinimo
+    check (stockMinimo > 0);
+
+   
+   -- Restriccion CHECK costo   
+alter table articulos
+	add constraint CHECK_articulos_costo
+    check (costo >= 0);
+   
+   
    
 
 -- =================RESTRICCIONES PARA TABLA ARTICULOS CALZADO DETALLE==============
@@ -159,27 +175,16 @@ alter table articulos_calzados_detalles
    	references articulos(id);
       
    
-   
 -- Restriccion UNIQUE para id 
 alter table articulos_calzados_detalles
 	add constraint UNIQUE_articulosCalzadosDetalles_id
 	unique(id);
 
--- Restriccion CHECK stock
-alter table articulos_calzados_detalles
-	add constraint CHECK_articulosCalzadosDetalles_stock
-    check (stock >= 0);
 
--- Restriccion CHECK stockMaximo   
-alter table articulos_calzados_detalles
-	add constraint CHECK_articulosCalzadosDetalles_stockMaximo
-    check (stockMaximo >= stockMinimo);
-
--- Restriccion CHECK costo   
-alter table articulos_calzados_detalles
-	add constraint CHECK_articulosCalzadosDetalles_costo
-    check (costo >= 0);
-
+   -- Restriccion CHECK numero   
+alter table articulos_calzados_detalles 
+	add constraint CHECK_articulosCalzadosDetalles_numero
+    check (numero >= 0);
 
    
 -- =================RESTRICCIONES PARA TABLA ARTICULOS ROPA DETALLES==============
@@ -196,21 +201,6 @@ alter table articulos_ropa_detalles
 	add constraint UNIQUE_articulosRopaDetalles_id
 	unique(id);
 
--- Restriccion CHECK stock
-alter table articulos_ropa_detalles
-	add constraint CHECK_articulosRopaDetalles_stock
-    check (stock >= 0);
-
--- Restriccion CHECK stockMaximo   
-alter table articulos_ropa_detalles
-	add constraint CHECK_articulosRopaDetalles_stockMaximo
-    check (stockMaximo >= stockMinimo);
-
--- Restriccion CHECK costo   
-alter table articulos_ropa_detalles
-	add constraint CHECK_articulosRopaDetalles_costo
-    check (costo >= 0);
-   
    
 -- =================RESTRICCIONES PARA TABLA ARTICULOS ACCESORIOS DETALLES==============
 
@@ -221,32 +211,12 @@ alter table articulos_accesorios_detalles
     foreign key(idArticulo)
    	references articulos(id);
    
-       
    
 -- Restriccion UNIQUE para id 
 alter table articulos_accesorios_detalles
 	add constraint UNIQUE_articulosAccesoriosDetalles_id
 	unique(id);
 
--- Restriccion CHECK stock
-alter table articulos_accesorios_detalles
-	add constraint CHECK_articulosAccesoriosDetalles_stock
-    check (stock >= 0);
-
--- Restriccion CHECK stockMaximo   
-alter table articulos_accesorios_detalles
-	add constraint CHECK_articulosAccesoriosDetalles_stockMaximo
-    check (stockMaximo >= stockMinimo);
-
--- Restriccion CHECK costo   
-alter table articulos_accesorios_detalles
-	add constraint CHECK_articulosAccesoriosDetalles_costo
-    check (costo >= 0);   
-
-   
-   
-   
-   
 
 -- ==============RESTRICCIONES TABLAS FACTURAS===============
 
@@ -263,7 +233,6 @@ alter table facturas
    	references articulos(id);
    
     
-   
 
    -- Restriccion tipo UNIQUE id facturas
 alter table facturas 
@@ -275,6 +244,7 @@ alter table facturas
 alter table facturas 
 	add constraint CHECK_facturas_precio
     check(precio >= 0);   
+   
    
 -- Restriccion tipo CHECK cantidad facturas   
 alter table facturas 

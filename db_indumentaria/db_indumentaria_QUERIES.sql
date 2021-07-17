@@ -5,20 +5,6 @@
 */
 
 /*
-	Remote Host
-	freedb.tech
-
-	Database Name
-	freedbtech_gestionBD
-
-	Username
-	freedbtech_gestionBD
-
-	Password
-	centro8
-*/
-
-/*
 	Cuando se vende un articulo?
 	
 try{
@@ -73,13 +59,12 @@ try{
 
 */
 
-use db_ropa;
+use db_indumentaria;
 
 select * from information_schema.TABLE_CONSTRAINTS where TABLE_SCHEMA='db_indumentaria';
 -- select * from information_schema.TABLE_CONSTRAINTS where TABLE_SCHEMA='freedbtech_gestionBD';
 
--- borramos una constraint
-alter table articulos drop constraint CK_articulos_precio;
+
 
 
 /*
@@ -111,8 +96,7 @@ alter table articulos drop constraint CK_articulos_precio;
 		Salas			8
 		Segovia			5
 		Soto			4
-		 
-*/
+
 
 -- Indice Comun
 create index I_clientes_ApellidoNombre 
@@ -173,7 +157,8 @@ create table temporal
 select * from temporal;
 
 
-
+		 
+*/
 
 
 
