@@ -4,13 +4,9 @@
 
 <hr>
 
-</br>
-
-## Más Información
+## Unirse como colaborador al proyecto
 
 </br>
-
-### Unirse como colaborador al proyecto
 
 ##### 1)Generamos un fork del proyecto Original..
 * https://github.com/javierrweiss/pruebas_JavaNIO
