@@ -2,6 +2,9 @@
 /* ----------------------------
  * -- Tienda de Indumentaria---
  * ----------------------------
+ * 
+ * 
+ * ========= DDL =============
  */
 
 drop database if exists db_indumentaria;
@@ -12,26 +15,16 @@ use db_indumentaria;
 
 
 drop table if exists clientes;
-drop table if exists facturas;
 drop table if exists articulos;
-drop table if exists detalles;
+drop table if exists articulos_calzados_detalles;
+drop table if exists articulos_ropa_detalles;
+drop table if exists articulos_accesorios_detalles;
+drop table if exists facturas;
+drop table if exists facturas_detalles;
 
 
 show tables;
 
-/*
- * 
- #select version();
- 
--- catalogo de tablas
-select * from information_schema.TABLES where TABLE_SCHEMA = 'ropa';
-
--- catalogo de restricciones
-select * from information_schema.TABLE_CONSTRAINTS where TABLE_SCHEMA ='gestion';
-
--- catalogo de vistas
-select * from information_schema.VIEWS;
-*/
 
 
 
@@ -49,116 +42,252 @@ create table clientes(
 
 
 
+
+create table articulos(
+	id int auto_increment primary key,
+	categoria enum('CALZADO','ROPA','ACCESORIOS'),
+	descripcion varchar(35) not null,
+    precio double,
+    stock int,
+    stockMinimo int,
+    stockMaximo int,
+    costo double
+    
+	
+);
+
+
+create table articulos_calzados_detalles(
+
+	id int auto_increment primary key,
+	idArticulo int not null,
+	tipo varchar(20) not null, -- Botas, zapatos, zapatillas
+	usabilidad varchar(20) not null, -- Deportivo, Urbano, Fino
+	numero char(3),
+	color varchar(20)
+
+);
+
+create table articulos_ropa_detalles(
+
+	id int auto_increment primary key,
+	idArticulo int not null,
+	tipo varchar(20) not null, -- Abrigo, ropa interior, remera, etc
+	usabilidad varchar(20) not null, -- Fina, deportiva, de trabajo, etc
+	talle varchar(4),
+	temporada enum('VERANO','INVIERNO'),
+	color varchar(20)
+	
+);
+
+
+create table articulos_accesorios_detalles(
+
+	id int auto_increment primary key,
+	idArticulo int not null,
+	tipo varchar(20) not null, -- Cinturones, gafas de sol, sombreros, pañuelos, etc
+	color varchar(20)
+
+);
+
+
+
 create table facturas(
 	id int auto_increment primary key,
+	idCliente int not null,
+	idArticulo int not null,
+	precio double,
+	cantidad int
+	
+);
+
+
+create table facturas_detalles(
+	id int auto_increment primary key,
+	idFactura int not null,
 	tipo enum('A','B','C','E'),
 	numero bigint,
     fechaEmision TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	medioDePago enum('EFECTIVO','CHEQUE','TARJETA'),
-	descripcion varchar(25),
- 	idCliente int not null
-);
-
-
-
-create table articulos(
-	id int auto_increment primary key,
-	descripcion varchar(35) not null,
-	categoria enum('CALZADO','ROPA','ACCESORIOS'),
-	color varchar(20),
-	talle varchar(4),
-	numero char(3),
-	stock int,
-    stockMinimo int,
-    stockMaximo int,
-    costo double,
-    precio double,
-	temporada enum('VERANO','INVIERNO')
-);
-
-create table detalles(
-	id int auto_increment primary key,
-	idArticulo int not null,
-	idFactura int not null,
-	precio double,
-	cantidad int
+	descripcion varchar(25)
+	
 );
 
 
 
 
+
+-- ==============RESTRICCIONES TABLAS CLIENTES===============
+
+-- Restriccion CHECK para Edad
 alter table clientes 
-	add constraint CK_clientes_edad
+	add constraint CHECK_clientes_edad
     check(edad>=18 and edad<=120); 
 
+-- Restriccion UNIQUE para Tipo y Numero Documento   
 alter table clientes
-	add constraint U_clientes_TipoNumero
+	add constraint UNIQUE_clientes_tipoNumeroDocumento
 	unique(tipoDocumento,numeroDocumento);
 
 
--- creamos la restriccion FK facturas idCliente
+  
+
+-- =================RESTRICCIONES PARA TABLA ARTICULOS==============
+
+-- Restriccion UNIQUE para id
+alter table articulos
+	add constraint UNIQUE_articulos_id
+    unique (id);
+   
+-- Restriccion CHECK para precio   
+alter table articulos
+	add constraint CHECK_articulos_precio
+    check (precio > 0 );
+   
+   
+   -- Restriccion CHECK stock
+alter table articulos
+	add constraint CHECK_articulos_stock
+    check (stock >= 0);
+
+-- Restriccion CHECK stockMaximo   
+alter table articulos
+	add constraint CHECK_articulos_stockMaximo
+    check (stockMaximo >= stockMinimo);
+
+   -- Restriccion CHECK stockMinimo   
+alter table articulos
+	add constraint CHECK_articulos_stockMinimo
+    check (stockMinimo > 0);
+
+   
+   -- Restriccion CHECK costo   
+alter table articulos
+	add constraint CHECK_articulos_costo
+    check (costo >= 0);
+   
+   
+   
+
+-- =================RESTRICCIONES PARA TABLA ARTICULOS CALZADO DETALLE==============
+
+-- FK idArticulos   
+alter table articulos_calzados_detalles 
+	add constraint FK_articulosCalzadoDetalles_idArticulos
+    foreign key(idArticulo)
+   	references articulos(id);
+      
+   
+-- Restriccion UNIQUE para id 
+alter table articulos_calzados_detalles
+	add constraint UNIQUE_articulosCalzadosDetalles_id
+	unique(id);
+
+
+   -- Restriccion CHECK numero   
+alter table articulos_calzados_detalles 
+	add constraint CHECK_articulosCalzadosDetalles_numero
+    check (numero >= 0);
+
+   
+-- =================RESTRICCIONES PARA TABLA ARTICULOS ROPA DETALLES==============
+
+-- FK idArticulos   
+alter table articulos_ropa_detalles 
+	add constraint FK_articulosRopaDetalles_idArticulos
+    foreign key(idArticulo)
+   	references articulos(id);
+      
+   
+-- Restriccion UNIQUE para id 
+alter table articulos_ropa_detalles
+	add constraint UNIQUE_articulosRopaDetalles_id
+	unique(id);
+
+   
+-- =================RESTRICCIONES PARA TABLA ARTICULOS ACCESORIOS DETALLES==============
+
+   
+-- FK idArticulos   
+alter table articulos_accesorios_detalles 
+	add constraint FK_articulosAccesoriosDetalles_idArticulos
+    foreign key(idArticulo)
+   	references articulos(id);
+   
+   
+-- Restriccion UNIQUE para id 
+alter table articulos_accesorios_detalles
+	add constraint UNIQUE_articulosAccesoriosDetalles_id
+	unique(id);
+
+
+-- ==============RESTRICCIONES TABLAS FACTURAS===============
+
+-- FK idCliente
 alter table facturas
 	add constraint FK_facturas_idCliente
     foreign key(idCliente)
     references clientes(id);
-
-alter table facturas
-	add constraint CK_facturas_numero
-    check (numero>0);
-
-/*
-alter table facturas
-	add constraint CK_facturas_fecha
-	check (fecha >= (current_date()-5) and fecha<= current_date());
-*/
-
+   
+-- FK idArticulos   
 alter table facturas 
-	add constraint U_facturas_TipoNumero
-    unique(tipo,numero);
-   
-alter table articulos
-	add constraint CK_articulos_stock
-    check (stock>=0);
-
-alter table articulos
-	add constraint CK_articulos_stockMin
-    check (stockMin>0);
-    
-alter table articulos
-	add constraint CK_articulos_stockMax
-    check (stockMax>=stockMin);
-    
-alter table articulos
-	add constraint CK_articulos_costo
-    check (costo>=0);
-
-alter table articulos
-	add constraint CK_articulos_precio
-    check (precio>=costo);
- 
-
-
-alter table detalles
-	add constraint U_detallesIdArtIdFact
-    unique(idArticulo,idFactura);
-
-alter table detalles
-	add constraint U_detalles_precio
-    check(precio>=0);   
-   
-alter table detalles
-	add constraint U_detalles_cantidad
-    check(cantidad>=0);
-   
-alter table detalles
-	add constraint FK_detalles_Articulos
+	add constraint FK_facturas_idArticulos
     foreign key(idArticulo)
    	references articulos(id);
    
-alter table detalles
+    
+
+   -- Restriccion tipo UNIQUE id facturas
+alter table facturas 
+	add constraint UNIQUE_facturas_id
+    unique(id);    
+   
+   
+   -- Restriccion tipo CHECK precio facturas
+alter table facturas 
+	add constraint CHECK_facturas_precio
+    check(precio >= 0);   
+   
+   
+-- Restriccion tipo CHECK cantidad facturas   
+alter table facturas 
+	add constraint CHECK_facturas_cantidad
+    check(cantidad >= 0);   
+
+
+
+-- ==============RESTRICCIONES TABLAS FACTURAS_DETALLES===============   
+
+   -- FK idFacturas
+alter table facturas_detalles 
 	add constraint FK_detalles_Facturas
     foreign key(idFactura)
-   	references facturas(id);   
+   	references facturas(id);     
+   
+   
+--  Restriccion CHECK para Numero de Factura
+alter table facturas_detalles 
+	add constraint CHECK_facturas_numero
+    check (numero > 0);
+
+
+-- Restriccion UNIQUE para  numero de factura
+alter table facturas_detalles 
+	add constraint UNIQUE_facturas_numero
+    unique(numero);
+   
+  
+-- Restriccion UNIQUE para Id de Factura
+alter table facturas_detalles 
+	add constraint UNIQUE_facturas_id
+    unique(idFactura);
+
+
+
+
+   
+   
+ 
 
 
 
