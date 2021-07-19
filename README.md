@@ -12,8 +12,6 @@
 
 <hr>
 
-# Más Información
-
 ## Unirse como colaborador al proyecto
 
 ##### 1)Generamos un fork del proyecto Original..
