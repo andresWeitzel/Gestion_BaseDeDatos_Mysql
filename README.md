@@ -10,11 +10,11 @@
 
 </br>
 
+<hr>
+
 # Más Información
 
 ## Unirse como colaborador al proyecto
-
-<hr>
 
 ##### 1)Generamos un fork del proyecto Original..
 * https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL
