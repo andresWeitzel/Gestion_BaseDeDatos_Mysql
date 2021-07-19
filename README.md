@@ -4,6 +4,12 @@
 
 </br>
 
+## Diagrama Entidad Relación 
+
+
+
+</br>
+# Más Información
 
 ## Unirse como colaborador al proyecto
 
