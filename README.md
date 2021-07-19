@@ -10,7 +10,7 @@
 <hr>
 
 ##### 1)Generamos un fork del proyecto Original..
-* https://github.com/javierrweiss/pruebas_JavaNIO
+* https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL
 
 ##### 2)Descargas o clonas tu fork
 * git clone "Link de tu Repositorio sin comillas"
