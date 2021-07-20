@@ -1,6 +1,6 @@
 # GestionDB_Mysql_PostgreSQL
 
-** Material sobre las prácticas y proyectos de Gestión de Base de Datos
+*Material sobre las prácticas y proyectos de Gestión de Base de Datos
 
 
 </br>
