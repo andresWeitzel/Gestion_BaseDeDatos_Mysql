@@ -5,10 +5,12 @@
 
 </br>
 
-### Diagrama Entidad Relación `db_indumentaria`
+#### Diagrama Entidad Relación `db_indumentaria`
 
 ![Index app](https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL/blob/master/db_indumentaria/db_indumentaria_DER.png)
 
+
+</br>
 
 <hr>
 
