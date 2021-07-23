@@ -1,33 +1,28 @@
 # GestionDB_Mysql_PostgreSQL
 
-<<<<<<< HEAD
 *Material de las prácticas y proyectos acerca de Gestión de Base de Datos*
 
 </br>
 
 ## Diagrama Entidad Relación 
 
-=======
+
 * Material sobre las prácticas y proyectos de Gestión de Base de Datos
 
 
 </br>
 
-#### Diagrama Entidad Relación `db_indumentaria`
+#### Diagrama Entidad Relación Mysql `db_indumentaria`
 
 ![Index app](https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL/blob/master/db_indumentaria/db_indumentaria_DER.png)
->>>>>>> 9cb057f559e2363d0f7861b4d3c3d4d592e4d420
+
 
 
 </br>
 
 <hr>
 
-<<<<<<< HEAD
 ## Unirse como colaborador al proyecto
-=======
-### Unirse como colaborador al proyecto
->>>>>>> 9cb057f559e2363d0f7861b4d3c3d4d592e4d420
 
 ##### 1)Generamos un fork del proyecto Original..
 * https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL
@@ -83,7 +78,3 @@
 </br>
 
 </br>
-<<<<<<< HEAD
-
-=======
->>>>>>> 9cb057f559e2363d0f7861b4d3c3d4d592e4d420
