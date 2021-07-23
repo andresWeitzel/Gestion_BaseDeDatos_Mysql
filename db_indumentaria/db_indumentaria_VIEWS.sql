@@ -11,7 +11,7 @@
 use db_indumentaria;
 
 
-
+/*
 -- ============== VISTAS CLIENTES ===============
 
 
@@ -32,13 +32,138 @@ select * from information_schema.VIEWS where TABLE_SCHEMA='db_indumentaria';
 
 
 
+
+-- ============== VISTAS ARTICULOS ===============
+
+
+--  Vista Articulos
+create view VIEW_articulos 
+	as select id,categoria,descripcion,precio 
+	from articulos;
+
+
+-- Consulta Vistas
+select * from information_schema.VIEWS where TABLE_SCHEMA='db_indumentaria';
+
+
+
+-- Borrar Vista Articulos
+-- drop view VIEW_articulos;
+
+*/
+
+
+
+-- ============== VISTAS ACCESORIOS DETALLES ===============
+
+
+--  Vista Articulos Accesorios Detalles
+create view VIEW_articulos_accesorios_detalles 
+
+	as select articulos.id, articulos.descripcion, articulos.precio
+	, articulos_accesorios_detalles.tipo, articulos_accesorios_detalles.color  
+	
+	from articulos
+	
+	inner join articulos_accesorios_detalles
+	
+	on articulos.id = articulos_accesorios_detalles.idArticulo;
+
+
+
+--  Vista Articulos Accesorios Almacen
+create view VIEW_articulos_accesorios_almacen 
+
+	as select articulos.id, articulos.descripcion, articulos.precio
+	, articulos.stock, articulos.stockMinimo, articulos.stockMaximo, articulos.costo 
+	, articulos_accesorios_detalles.tipo
+	
+	from articulos
+	
+	inner join articulos_accesorios_detalles
+	
+	on articulos.id = articulos_accesorios_detalles.idArticulo;
+
+
+-- Consulta Vistas
+select * from information_schema.VIEWS where TABLE_SCHEMA='db_indumentaria';
+
+
+
+-- Borrar Vista Articulos Accesorios Detalles
+-- drop view VIEW_articulos_accesorios_detalles;
+
+-- Borrar Vista Articulos Accesorios Almacen
+-- drop view VIEW_articulos_accesorios_almacen;
+
+
+
+
+
+-- ============== VISTAS CALZADOS DETALLES ===============
+
+
+--  Vista Articulos Calzados Detalles
+create view VIEW_articulos_calzados_detalles 
+
+	as select articulos.id, articulos.descripcion, articulos.precio
+	, articulos_calzados_detalles.tipo, articulos_calzados_detalles.usabilidad
+	, articulos_calzados_detalles.numero , articulos_calzados_detalles.color 
+	
+	from articulos
+	
+	inner join articulos_calzados_detalles
+	
+	on articulos.id = articulos_calzados_detalles.idArticulo;
+
+
+
+--  Vista Articulos Calzados Almacen
+create view VIEW_articulos_calzados_almacen 
+
+	as select articulos.id, articulos.descripcion, articulos.precio
+	, articulos.stock, articulos.stockMinimo, articulos.stockMaximo, articulos.costo 
+	, articulos_calzados_detalles.tipo, articulos_calzados_detalles.numero 
+	
+	from articulos
+	
+	inner join articulos_calzados_detalles
+	
+	on articulos.id = articulos_calzados_detalles.idArticulo;
+
+
+
+-- Consulta Vistas
+select * from information_schema.VIEWS where TABLE_SCHEMA='db_indumentaria';
+
+
+
+-- Borrar Vista Articulos Calzados Detalles
+-- drop view VIEW_articulos_calzados_detalles;
+
+-- Borrar Vista Articulos Calzados Detalles
+-- drop view VIEW_articulos_calzados_almacen;
+
+
+
+
+
+
 /*
+ drop view VIEW_articulos_accesorios_detalles;
 
-select * from V_articulos;
-insert into V_articulos values (null,'Remera','ROPA','Rojo','1',10,100,'VERANO');
-delete from articulos;
+ drop view VIEW_articulos_calzados_detalles;
+ 
+ drop view VIEW_articulos_accesorios_almacen;
+ 
+ drop view VIEW_articulos_calzados_almacen;
 
-describe articulos;
+**/
+
+
+
+
+/*
 
 create view V_total as
 	select c.id idCliente ,concat(c.apellido,' ',c.nombre) nombre, c.direccion, c.email, c.telefono, 
