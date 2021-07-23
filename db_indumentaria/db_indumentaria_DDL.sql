@@ -1,4 +1,5 @@
 
+
 /* ----------------------------
  * -- Tienda de Indumentaria---
  * ----------------------------
@@ -288,8 +289,3 @@ alter table facturas_detalles
    
    
  
-
-
-
-
-

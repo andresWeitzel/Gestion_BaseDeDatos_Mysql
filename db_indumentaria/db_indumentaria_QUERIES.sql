@@ -1,3 +1,4 @@
+
 /*
 ----------------------------
 -- Tienda de Indumentaria---
@@ -34,9 +35,6 @@ select * from information_schema.VIEWS where TABLE_SCHEMA='db_indumentaria';
 -- CONSULTA DE ESTADISTICAS
 
 select * from information_schema.STATISTICS where INDEX_SCHEMA ='negocioWebRopa';
-
-
-
 
 
 

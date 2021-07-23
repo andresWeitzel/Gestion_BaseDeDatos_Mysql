@@ -77,7 +77,3 @@ insert into facturas_detalles (id, idFactura, tipo, numero, fechaEmision, medioD
 	(2,2,'B',7684999033,now(),'TARJETA','Debito');
 
 
-
-
-
-
