@@ -2,13 +2,6 @@
 
 *Material de las prácticas y proyectos acerca de Gestión de Base de Datos*
 
-</br>
-
-## Diagrama Entidad Relación 
-
-
-* Material sobre las prácticas y proyectos de Gestión de Base de Datos
-
 
 </br>
 
