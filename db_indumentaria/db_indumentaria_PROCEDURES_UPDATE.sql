@@ -1,59 +1,40 @@
+
+
 /*
 ----------------------------
 -- Tienda de Indumentaria---
 ----------------------------
 
-========= PROCEDURES =============
+========= PROCEDURES UPDATES =============
 
 Crear los procedimientos almacenados de insert delete y update
  para la base de datos negocioWebRopa
 
 */
 
+
 use db_indumentaria;
 
-drop procedure if exists SP_insertar_articulos;
- 
+drop procedure if exists SP_update_articulos_precio_iva;
+drop procedure if exists SP_update_articulos_precio;
 
 
 
 
 
--- ============== INSERTAR ARTICULOS ===============
+
+/*
+
+-- ============== ACTUALIZAR ARTICULOS PRECIO IVA ===============
 
 DELIMITER $$
 
-create procedure SP_insertar_articulos(
-	 param_sp_categoria 		enum('CALZADO','ROPA','ACCESORIOS')
-	,param_sp_descripcion	varchar(35)
-	,param_sp_precio			double
-	,param_sp_stock			int
-	,param_sp_stockMinimo	int
-	,param_sp_stockMaximo	int
-	,param_sp_costo			double
-)
+create procedure SP_update_articulos_precio_iva()
 
 begin 
 	
-	insert into articulos (
-		categoria
-		,descripcion
-		,precio
-		,stock
-		,stockMinimo
-		,stockMaximo
-		,costo
-		)
-	values
-		(
-		param_sp_categoria
-		,param_sp_descripcion
-		,param_sp_precio
-		,param_sp_stock
-		,param_sp_stockMinimo
-		,param_sp_stockMaximo
-		,param_sp_costo
-		);
+	update articulos set precio = precio + (precio * 0.21) ;-- Se suma el 21%
+
 
 end
 
@@ -61,71 +42,57 @@ $$
 
 DELIMITER ;
 
--- Seteamos los parametros a Ingresar
-set @param_sp_categoria='ROPA';
-set @param_sp_descripcion='Sweater Negro';
-set @param_sp_precio=3500.00;
-set @param_sp_stock=10;
-set @param_sp_stockMinimo=4;
-set @param_sp_stockMaximo=10;
-set @param_sp_costo=2100.00;
-
-
 -- Llamamos al procedimiento
-call SP_insertar_articulos(
-	@param_sp_categoria
-	,@param_sp_descripcion
-	,@param_sp_precio
-	,@param_sp_stock
-	,@param_sp_stockMinimo
-	,@param_sp_stockMaximo
-	,@param_sp_costo);
+call SP_update_articulos_precio_iva();
 
 
 
 
 
+-- ============== ACTUALIZAR PRECIO POR ARTICULO===============
 
-
-
-/*
 DELIMITER $$
 
+create procedure SP_update_articulos_precio(
+	param_sp_id int
+	,param_sp_precio double
+)
 
-create procedure actualizar_precios_iva_articulos()
 
 begin 
 	
-	update articulos set precio
+	update articulos set precio = param_sp_precio 
+	
+		where id = param_sp_id;
+
+
 end
 
+$$
 
-$$ DELIMITER;
+DELIMITER ;
+
+-- Llamamos al procedimiento
+call SP_update_articulos_precio(1,4000);
+
 
 */
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 
-delimiter //
-create procedure aumentar_precios()
-begin
-	update articulos set precio=precio*1.1 where temporada='OTOÑO';
-end
-// delimiter ;
-
--- consulta de catalogo
-SELECT * FROM INFORMATION_SCHEMA.routines where routine_schema='negocioWebRopa';
-
-select * from articulos;
-
--- desactivamos safe_updates
-set sql_safe_updates=0;
-
--- ejecutar procedure
-call aumentar_precios();
-
-drop procedure if exists aumentar_precios2;
 
 delimiter //
 create procedure aumentar_precios2(in porcentaje int)
@@ -135,6 +102,10 @@ end
 // delimiter ;
 
 call aumentar_precios2(20);
+
+
+
+
 
 delimiter //
 create procedure SP_aumentar(in porcentaje int, atemporada varchar(12))
