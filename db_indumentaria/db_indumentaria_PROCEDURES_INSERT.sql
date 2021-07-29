@@ -14,6 +14,10 @@
 
 use db_indumentaria;
 
+drop table if exists logs_inserts;
+
+drop procedure if exists SP_insert_log;
+
 drop procedure if exists SP_insert_articulos;
 
 drop procedure if exists SP_insert_articulos_ropa_detalles;
@@ -28,6 +32,75 @@ drop procedure if exists SP_insert_facturas_detalles;
 
 drop procedure if exists SP_procedures;
 
+
+
+
+
+
+
+
+-- ==============  TABLA DE LOGS INSERTS ===============
+
+
+create table logs_inserts(
+
+	id int auto_increment primary key,
+	idRegistroTabla int,
+	nombreTabla varchar(60) not null,
+	accion varchar(30) not null,
+	fechaHora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	usuario varchar(40),
+	rolNivel 	varchar(40)
+);
+
+
+
+
+
+-- ==============  INSERTAR LOG ===============
+
+DELIMITER $$
+
+create procedure SP_insert_log(
+			param_sp_idRegistroTabla int
+			,param_sp_nombreTabla varchar(60)
+			,param_sp_accion varchar(30)
+			,param_sp_fechaHora TIMESTAMP 
+			,param_sp_usuario varchar(40)
+			,param_sp_rolNivel	  varchar(40)
+
+
+)
+
+	begin 
+		
+		insert into logs_inserts( 
+		
+				idRegistroTabla
+				,nombreTabla
+				,accion
+				,fechaHora
+				,usuario
+				,rolNivel
+				
+				)
+		values(
+		
+			param_sp_idRegistroTabla 
+			,param_sp_nombreTabla
+			,param_sp_accion 
+			,param_sp_fechaHora  
+			,param_sp_usuario 
+			,param_sp_rolNivel
+		
+		);
+	
+	end
+
+
+$$
+
+DELIMITER ;
 
 
 
@@ -98,6 +171,32 @@ call SP_insert_articulos(
 
 
 
+-- === LOG ARTICULO INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
+
+
+
+
+
 -- === ARTICULO INSERTADO POR PROCEDIMIENTO 02 ===
 
 -- Seteamos los parametros a Ingresar
@@ -119,6 +218,32 @@ call SP_insert_articulos(
 	,@param_sp_stockMinimo
 	,@param_sp_stockMaximo
 	,@param_sp_costo);
+
+
+
+-- === LOG ARTICULO INSERTADO POR PROCEDIMIENTO 02 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
+
+
 
 
 
@@ -184,6 +309,29 @@ call SP_insert_articulos_ropa_detalles(
 
 
 
+-- === LOG ARTICULO ROPA DETALLE INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS_ROPA_DETALLES';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
+
+
 
 
 
@@ -242,6 +390,29 @@ call SP_insert_articulos_calzados_detalles(
 	,@param_sp_usabilidad
 	,@param_sp_numero
 	,@param_sp_color);
+
+
+
+-- === LOG ARTICULO CALZADO DETELLA INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS_CALZADOS_DETALLES';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
 
 
 
@@ -317,6 +488,29 @@ call SP_insert_clientes(
 
 
 
+-- === LOG CLIENTES INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_nombreTabla = 'CLIENTES';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
+
+
 
 -- ============== INSERTAR FACTURAS ===============
 
@@ -372,6 +566,28 @@ call SP_insert_facturas(
 	,@param_sp_precio
 	,@param_sp_cantidad
 
+	);
+
+
+-- === LOG FACTURAS INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_nombreTabla = 'FACTURAS';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
 	);
 
 
@@ -436,6 +652,27 @@ call SP_insert_facturas_detalles(
 	,@param_sp_fechaEmision
 	,@param_sp_medioDePago
 	,@param_sp_descripcion
+	);
+
+-- === LOG FACTURAS DETALLES INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_nombreTabla = 'FACTURAS_DETALLES';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
 	);
 
 

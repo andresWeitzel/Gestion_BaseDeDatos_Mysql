@@ -5,7 +5,8 @@
 -- Tienda de Indumentaria---
 ----------------------------
 
-========= PROCEDURES DELETES =============
+========= TRIGGERS INSERTS =============
+
 
 
 */
@@ -14,55 +15,73 @@
 use db_indumentaria;
 
 
-drop procedure if exists SP_delete_articulos;
 
-drop procedure if exists SP_delete_articulos_accesorios_detalles;
+drop trigger if exists SP_TRIGGER_after_insert_articulos;
 
-drop procedure if exists SP_delete_articulos_calzados_detalles;
+drop trigger if exists SP_TRIGGER_after_insert_articulos_accesorios_detalles;
 
-drop procedure if exists SP_delete_articulos_ropa_detalles;
+drop trigger if exists SP_TRIGGER_after_insert_articulos_calzados_detalles;
 
-drop procedure if exists SP_delete_clientes;
+drop trigger if exists SP_TRIGGER_after_insert_articulos_ropa_detalles;
 
-drop procedure if exists SP_delete_facturas;
+drop trigger if exists SP_TRIGGER_after_insert_clientes;
 
-drop procedure if exists SP_delete_facturas_detalles;
+drop trigger if exists SP_TRIGGER_after_insert_facturas;
 
-drop procedure if exists SP_procedures;
+drop trigger if exists SP_TRIGGER_after_insert_facturas_detalles;
 
-
-
+drop trigger if exists SP_TRIGGER_after_insert_procedures;
 
 
 
 
--- ============== ELIMINAR ARTICULO POR ID ===============
+
+
+
+
+-- ============== PROCEDIMIENTO INSERTAR LOG ===============
 
 DELIMITER $$
 
-create procedure SP_delete_articulos(
-	param_sp_id int
-
-)
-
-
-begin 
+create trigger SP_TRIGGER_after_insert_articulos
 	
-	delete from articulos  where id = param_sp_id;
+	after insert on articulos for each row
 
-end
+	begin 
+		
+		insert into logs_inserts( 
+		
+				idRegistroTabla
+				,nombreTabla
+				,accion
+				,fechaHora
+				,usuario
+				,rolNivel
+				)
+				
+				
+		values(
+		
+			 NEW.id -- id del articulo
+			 ,'ARTICULOS'
+			 ,'INSERT'
+			 ,now()
+		 	 ,current_user()
+			 ,current_role()
+		
+		);
+	
+	end
+
 
 $$
 
 DELIMITER ;
 
--- Llamamos al procedimiento
-call SP_delete_articulos(11);
 
-
-
-
-
+ 
+ /*
+ 
 -- ============== ELIMINAR ARTICULOS ACCESORIOS DETALLES POR ID ===============
 
 DELIMITER $$
@@ -301,6 +320,6 @@ call SP_procedures();
 
 
 
-
+*/
 
 

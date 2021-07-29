@@ -7,13 +7,15 @@
 
 ========= PROCEDURES UPDATES =============
 
-Crear los procedimientos almacenados de insert delete y update
- para la base de datos negocioWebRopa
-
 */
 
 
 use db_indumentaria;
+
+
+drop table if exists logs_updates;
+
+drop procedure if exists SP_update_log;
 
 drop procedure if exists SP_update_articulos_precio_valor_agregado;
 
@@ -36,6 +38,79 @@ drop procedure if exists SP_update_facturas_precio_iva;
 drop procedure if exists SP_update_facturas_detalles;
 
 drop procedure if exists SP_procedures;
+
+
+
+
+
+
+
+-- ==============  TABLA DE LOGS UPDATES ===============
+
+
+create table logs_updates(
+
+	id int auto_increment primary key,
+	idRegistroTabla int,
+	nombreTabla varchar(40) not null,
+	campoTabla varchar(40),
+	accion varchar(30) not null,
+	fechaHora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	usuario varchar(40),
+	rolNivel 	varchar(40)
+);
+
+
+
+
+
+-- ==============  UPDATE LOG ===============
+
+DELIMITER $$
+
+create procedure SP_update_log(
+			param_sp_idRegistroTabla int
+			,param_sp_nombreTabla varchar(60)
+			,param_sp_campoTabla varchar(40)
+			,param_sp_accion varchar(30)
+			,param_sp_fechaHora TIMESTAMP 
+			,param_sp_usuario varchar(40)
+			,param_sp_rolNivel	  varchar(40)
+
+
+)
+
+	begin 
+		
+		insert into logs_updates( 
+		
+				idRegistroTabla
+				,nombreTabla
+				,campoTabla
+				,accion
+				,fechaHora
+				,usuario
+				,rolNivel
+				
+				)
+		values(
+		
+			param_sp_idRegistroTabla 
+			,param_sp_nombreTabla
+			,param_sp_campoTabla
+			,param_sp_accion 
+			,param_sp_fechaHora  
+			,param_sp_usuario 
+			,param_sp_rolNivel
+		
+		);
+	
+	end
+
+
+$$
+
+DELIMITER ;
 
 
 
@@ -70,6 +145,33 @@ call SP_update_articulos_precio_valor_agregado();
 
 
 
+-- === LOG ARTICULOS ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null ;-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS';
+set @param_sp_campoTabla = 'PRECIO';
+set @param_sp_accion = 'UPDATE_ALL';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
+
+
+
+
 
 
 -- ============== ACTUALIZAR PRECIO POR ARTICULO===============
@@ -97,6 +199,32 @@ DELIMITER ;
 
 -- Llamamos al procedimiento
 call SP_update_articulos_precio(1,4000);
+
+
+
+-- === LOG ARTICULO ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null ;-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS';
+set @param_sp_campoTabla = 'PRECIO';
+set @param_sp_accion = 'UPDATE_ALL';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
 
 
 
@@ -141,6 +269,30 @@ call SP_update_articulos(5,'ACCESORIOS','Sombrero Vifu juk9033', 3388, 3, 3, 20,
 
 
 
+-- === LOG ARTICULOS ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null ;-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS_ACCESORIOS_DETALLES';
+set @param_sp_campoTabla = 'DESCRIPCION';
+set @param_sp_accion = 'UPDATE';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
+
 
 -- ============== ACTUALIZAR ARTICULOS ACCESORIOS DETALLES POR CAMPO DESEADO ===============
 
@@ -174,6 +326,30 @@ DELIMITER ;
 -- Llamamos al procedimiento
 call SP_update_articulos_accesorios_detalles(1, 5, 'Sombrero','Blanco');
 
+
+
+-- === LOG ARTICULOS_ACCESORIOS_DETALLES ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null;-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS_ACCESORIOS_DETALLES';
+set @param_sp_campoTabla = 'COLOR';
+set @param_sp_accion = 'UPDATE';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
 
 
 
@@ -214,6 +390,30 @@ DELIMITER ;
 -- Llamamos al procedimiento
 call SP_update_articulos_calzados_detalles(1, 3, 'Zapatillas', 'Deportivo', 40,'Blanco');
 
+
+
+-- === LOG ARTICULOS_CALZADOS_DETALLES ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null;-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS_CALZADOS_DETALLES';
+set @param_sp_campoTabla = 'USABILIDAD';
+set @param_sp_accion = 'UPDATE';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
 
 
 
@@ -257,6 +457,28 @@ call SP_update_articulos_ropa_detalles(1, 1, 'Abrigo', 'Formal', 'M', 'INVIERNO'
 
 
 
+-- === LOG ARTICULOS_ROPAS_DETALLES ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null;-- id del articulo
+set @param_sp_nombreTabla = 'ARTICULOS_ROPA_DETALLES';
+set @param_sp_campoTabla = 'USABILIDAD';
+set @param_sp_accion = 'UPDATE';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
 
 
 
@@ -307,6 +529,33 @@ call SP_update_clientes(1, 'Juan', 'Perez', 26, 'Velez Diaz 1123'
 		, 'JuanPerezSe@gmail.com', '1167456711', 'DNI', '67899076');
 
 
+	
+	
+	-- === LOG CLIENTES ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null;-- id del articulo
+set @param_sp_nombreTabla = 'CLIENTES';
+set @param_sp_campoTabla = 'NOMBRE, APELLIDO, EDAD, EMAIL';
+set @param_sp_accion = 'UPDATE';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
+
+
 
 
 
@@ -316,7 +565,7 @@ DELIMITER $$
 
 create procedure SP_update_facturas(
 	param_sp_id				int
-	 ,param_sp_idCliente		int 	
+	,param_sp_idCliente		int 	
 	,param_sp_idArticulo	int
 	,param_sp_precio		double
 	,param_sp_cantidad		int
@@ -327,7 +576,7 @@ create procedure SP_update_facturas(
 begin 
 	
 	update facturas set 
-		id = param_sp_id
+		 id = param_sp_id
 		,idCliente = param_sp_idCliente		
 		,idArticulo = param_sp_idArticulo
 		,precio = param_sp_precio
@@ -344,6 +593,31 @@ DELIMITER ;
 
 -- Llamamos al procedimiento
 call SP_update_facturas(1, 1, 1, 10000, 2);
+
+
+
+-- === LOG FACTURAS ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null;-- id del articulo
+set @param_sp_nombreTabla = 'FACTURAS';
+set @param_sp_campoTabla = 'MEDIO_DE_PAGO';
+set @param_sp_accion = 'UPDATE';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
 
 
 
@@ -366,6 +640,32 @@ DELIMITER ;
 
 -- Llamamos al procedimiento
 call SP_update_facturas_precio_iva();
+
+
+-- === LOG FACTURAS IVA ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null;-- id del articulo
+set @param_sp_nombreTabla = 'FACTURAS';
+set @param_sp_campoTabla = 'PRECIO';
+set @param_sp_accion = 'UPDATE_ALL';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
+
+
 
 
 
@@ -411,6 +711,29 @@ call SP_update_facturas_detalles(1, 1, 'B', 9993028302
 	, '2021-07-27 14:23:09', 'EFECTIVO', null);
 
 
+
+-- === LOG FACTURAS_DETALLES IVA ACTUALIZADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = null;-- id del articulo
+set @param_sp_nombreTabla = 'FACTURAS';
+set @param_sp_campoTabla = 'MEDIO_DE_PAGO';
+set @param_sp_accion = 'UPDATE';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user();
+set @param_sp_rolNivel = current_role(); 
+
+
+-- Llamamos al procedimiento
+call SP_update_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_campoTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	);
 
 
 
