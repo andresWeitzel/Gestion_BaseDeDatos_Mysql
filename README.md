@@ -16,7 +16,6 @@
 
 | **Tecnologías** | **Versión** | **Finalidad** |               
 | ------------- | ------------- | ------------- |
-| Java |   12.0.2 | JDK |
 | Git Bash | 2.29.1.windows.1  | Control de Versiones |
 | XAMPP | 3.2.2  | Paquete de Servidores |
 | DBeaver | 21.1  | Diseño de Base de Datos | 
@@ -25,7 +24,6 @@
 
 
 ## Descarga y documentacion de las Tecnologías empleadas:
-#### Java-JDK 12:                     https://www.oracle.com/java/technologies/javase/jdk12-archive-downloads.html
 #### Git:                              https://git-scm.com/docs
 #### XAMPP:                            https://www.apachefriends.org/download.html
 #### DBeaver:                         https://dbeaver.io/
