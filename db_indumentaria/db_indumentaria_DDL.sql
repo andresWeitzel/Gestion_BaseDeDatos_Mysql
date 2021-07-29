@@ -16,11 +16,17 @@ use db_indumentaria;
 
 
 drop table if exists clientes;
+
 drop table if exists articulos;
+
 drop table if exists articulos_calzados_detalles;
+
 drop table if exists articulos_ropa_detalles;
+
 drop table if exists articulos_accesorios_detalles;
+
 drop table if exists facturas;
+
 drop table if exists facturas_detalles;
 
 
@@ -242,6 +248,7 @@ alter table facturas
 alter table facturas 
 	add constraint UNIQUE_facturas_id
     unique(id);    
+        
    
    
    -- Restriccion tipo CHECK precio facturas

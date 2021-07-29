@@ -67,8 +67,8 @@ insert into articulos_accesorios_detalles (id,idArticulo,tipo,color) values
 
 insert into facturas (id, idCliente, idArticulo, precio, cantidad) values 
 	
-	(1 , 1 , 1 , 5000.0 , 1),
-	(2 , 2 , 2 , 7600.0 , 2);
+	(1, 1, 1, 5000.0, 1),
+	(2, 2, 2, 7600.0, 2);
 
 
 

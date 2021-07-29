@@ -20,6 +20,8 @@
 
  drop view if exists VIEW_articulos_detalles; 
 
+drop view if exists VIEW_articulos_reposicion; 
+
  drop view if exists VIEW_articulos_accesorios_detalles;
 
  drop view if exists VIEW_articulos_calzados_detalles;
@@ -84,6 +86,13 @@ create view VIEW_articulos_detalles
 	from articulos;
 
 
+-- Vista Articulos Reposición
+create view VIEW_articulos_reposicion 
+
+	as select id, descripcion from articulos where stockMinimo < 0;
+
+
+
 -- Consulta Vistas
 -- select * from information_schema.VIEWS where TABLE_SCHEMA='db_indumentaria';
 
@@ -94,6 +103,9 @@ create view VIEW_articulos_detalles
 
 -- Borrar Vista Articulos Detalles
 -- drop view VIEW_articulos_detalles;
+
+-- Borrar Vista Articulos Reposicion
+-- drop view VIEW_articulos_reposicion;
 
 
 

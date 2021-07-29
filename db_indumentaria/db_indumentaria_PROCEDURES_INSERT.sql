@@ -6,8 +6,7 @@
 
 ========= PROCEDURES INSERTS=============
 
-Crear los procedimientos almacenados de insert delete y update
- para la base de datos negocioWebRopa
+
 
 */
 
@@ -16,12 +15,19 @@ Crear los procedimientos almacenados de insert delete y update
 use db_indumentaria;
 
 drop procedure if exists SP_insert_articulos;
+
 drop procedure if exists SP_insert_articulos_ropa_detalles;
+
 drop procedure if exists SP_insert_articulos_calzados_detalles;
+
 drop procedure if exists SP_insert_clientes;
+
 drop procedure if exists SP_insert_facturas;
+
 drop procedure if exists SP_insert_facturas_detalles;
- 
+
+drop procedure if exists SP_procedures;
+
 
 
 
@@ -347,12 +353,15 @@ $$
 
 DELIMITER ;
 
+
+
+
 -- === FACTURA INSERTADA POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
 set @param_sp_idCliente= 3 ;
 set @param_sp_idArticulo= 3;
-set @param_sp_precio= 8600;
+set @param_sp_precio= 4444;
 set @param_sp_cantidad= 2;
 
 
@@ -411,7 +420,7 @@ DELIMITER ;
 -- === FACTURA DETALLES INSERTADA POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idFactura= 3 ;
+set @param_sp_idFactura= 5 ;
 set @param_sp_tipo= 'C';
 set @param_sp_numero= 8585749930392;
 set @param_sp_fechaEmision= now();
@@ -429,6 +438,28 @@ call SP_insert_facturas_detalles(
 	,@param_sp_descripcion
 	);
 
+
+
+
+-- ============== PROCEDIMIENTOS SCHEMA ===============
+
+DELIMITER $$
+
+	create procedure SP_procedures()
+	
+	
+    begin
+	
+	    SELECT * FROM INFORMATION_SCHEMA.routines where routine_schema='db_indumentaria';
+    
+    end
+
+$$
+
+DELIMITER ;
+
+-- Llamamos al procedimiento
+call SP_procedures();
 
 
 

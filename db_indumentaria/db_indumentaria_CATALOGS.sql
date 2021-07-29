@@ -4,11 +4,10 @@
 -- Tienda de Indumentaria---
 ----------------------------
 
-========= QUERIES =============
+========= CATALOGS =============
 */
 
 use db_indumentaria;
-
 
 
 -- ============== CATALOGO INFORMATION SCHEMA===============
