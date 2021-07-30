@@ -46,11 +46,13 @@ create table logs_inserts(
 
 	id int auto_increment primary key,
 	idRegistroTabla int,
-	nombreTabla varchar(60) not null,
+	UuidRegistroTabla    varchar(60),
+	nombreTabla varchar(40) not null,
 	accion varchar(30) not null,
 	fechaHora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	usuario varchar(40),
-	rolNivel 	varchar(40)
+	rolNivel 	varchar(40),
+	motorDB 	varchar(40)
 );
 
 
@@ -62,12 +64,14 @@ create table logs_inserts(
 DELIMITER $$
 
 create procedure SP_insert_log(
-			param_sp_idRegistroTabla int
+			 param_sp_idRegistroTabla int
+			,param_sp_UuidRegistroTabla varchar(60)
 			,param_sp_nombreTabla varchar(60)
 			,param_sp_accion varchar(30)
 			,param_sp_fechaHora TIMESTAMP 
 			,param_sp_usuario varchar(40)
 			,param_sp_rolNivel	  varchar(40)
+			,param_sp_motorDB	varchar(40)
 
 
 )
@@ -77,25 +81,31 @@ create procedure SP_insert_log(
 		insert into logs_inserts( 
 		
 				idRegistroTabla
+				,UuidRegistroTabla
 				,nombreTabla
 				,accion
 				,fechaHora
 				,usuario
 				,rolNivel
+				,motorDB
 				
 				)
 		values(
 		
 			param_sp_idRegistroTabla 
+			,param_sp_UuidRegistroTabla 
 			,param_sp_nombreTabla
 			,param_sp_accion 
 			,param_sp_fechaHora  
 			,param_sp_usuario 
 			,param_sp_rolNivel
+			,param_sp_motorDB
 		
 		);
 	
 	end
+
+
 
 
 $$
@@ -171,26 +181,33 @@ call SP_insert_articulos(
 
 
 
--- === LOG ARTICULO INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- ========== LOG ARTICULOS INSERTADOS POR PROCEDIMIENTO 01 ==========
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
 set @param_sp_nombreTabla = 'ARTICULOS';
 set @param_sp_accion = 'INSERT';
 set @param_sp_fechaHora = now();
-set @param_sp_usuario = current_user();
+set @param_sp_usuario = current_user() ;
 set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
 
 
 -- Llamamos al procedimiento
 call SP_insert_log(
 	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
 	 ,@param_sp_nombreTabla
 	 ,@param_sp_accion
 	 ,@param_sp_fechaHora
 	 ,@param_sp_usuario
 	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
 	);
+
+
 
 
 
@@ -224,22 +241,26 @@ call SP_insert_articulos(
 -- === LOG ARTICULO INSERTADO POR PROCEDIMIENTO 02 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
 set @param_sp_nombreTabla = 'ARTICULOS';
 set @param_sp_accion = 'INSERT';
 set @param_sp_fechaHora = now();
-set @param_sp_usuario = current_user();
+set @param_sp_usuario = current_user() ;
 set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
 
 
 -- Llamamos al procedimiento
 call SP_insert_log(
 	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
 	 ,@param_sp_nombreTabla
 	 ,@param_sp_accion
 	 ,@param_sp_fechaHora
 	 ,@param_sp_usuario
 	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
 	);
 
 
@@ -312,22 +333,26 @@ call SP_insert_articulos_ropa_detalles(
 -- === LOG ARTICULO ROPA DETALLE INSERTADO POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_idRegistroTabla =last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
 set @param_sp_nombreTabla = 'ARTICULOS_ROPA_DETALLES';
 set @param_sp_accion = 'INSERT';
 set @param_sp_fechaHora = now();
-set @param_sp_usuario = current_user();
+set @param_sp_usuario = current_user() ;
 set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
 
 
 -- Llamamos al procedimiento
 call SP_insert_log(
 	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
 	 ,@param_sp_nombreTabla
 	 ,@param_sp_accion
 	 ,@param_sp_fechaHora
 	 ,@param_sp_usuario
 	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
 	);
 
 
@@ -393,25 +418,29 @@ call SP_insert_articulos_calzados_detalles(
 
 
 
--- === LOG ARTICULO CALZADO DETELLA INSERTADO POR PROCEDIMIENTO 01 ===
+-- === LOG ARTICULO CALZADO DETALLA INSERTADO POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
 set @param_sp_nombreTabla = 'ARTICULOS_CALZADOS_DETALLES';
 set @param_sp_accion = 'INSERT';
 set @param_sp_fechaHora = now();
-set @param_sp_usuario = current_user();
+set @param_sp_usuario = current_user() ;
 set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
 
 
 -- Llamamos al procedimiento
 call SP_insert_log(
 	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
 	 ,@param_sp_nombreTabla
 	 ,@param_sp_accion
 	 ,@param_sp_fechaHora
 	 ,@param_sp_usuario
 	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
 	);
 
 
@@ -491,22 +520,26 @@ call SP_insert_clientes(
 -- === LOG CLIENTES INSERTADO POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
 set @param_sp_nombreTabla = 'CLIENTES';
 set @param_sp_accion = 'INSERT';
 set @param_sp_fechaHora = now();
-set @param_sp_usuario = current_user();
+set @param_sp_usuario = current_user() ;
 set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
 
 
 -- Llamamos al procedimiento
 call SP_insert_log(
 	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
 	 ,@param_sp_nombreTabla
 	 ,@param_sp_accion
 	 ,@param_sp_fechaHora
 	 ,@param_sp_usuario
 	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
 	);
 
 
@@ -572,22 +605,26 @@ call SP_insert_facturas(
 -- === LOG FACTURAS INSERTADO POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
 set @param_sp_nombreTabla = 'FACTURAS';
 set @param_sp_accion = 'INSERT';
 set @param_sp_fechaHora = now();
-set @param_sp_usuario = current_user();
+set @param_sp_usuario = current_user() ;
 set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
 
 
 -- Llamamos al procedimiento
 call SP_insert_log(
 	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
 	 ,@param_sp_nombreTabla
 	 ,@param_sp_accion
 	 ,@param_sp_fechaHora
 	 ,@param_sp_usuario
 	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
 	);
 
 
@@ -657,22 +694,26 @@ call SP_insert_facturas_detalles(
 -- === LOG FACTURAS DETALLES INSERTADO POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla =last_insert_id();-- id del articulo
+set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
 set @param_sp_nombreTabla = 'FACTURAS_DETALLES';
 set @param_sp_accion = 'INSERT';
 set @param_sp_fechaHora = now();
-set @param_sp_usuario = current_user();
+set @param_sp_usuario = current_user() ;
 set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
 
 
 -- Llamamos al procedimiento
 call SP_insert_log(
 	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
 	 ,@param_sp_nombreTabla
 	 ,@param_sp_accion
 	 ,@param_sp_fechaHora
 	 ,@param_sp_usuario
 	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
 	);
 
 
