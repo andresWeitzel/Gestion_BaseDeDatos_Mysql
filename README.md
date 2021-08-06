@@ -37,6 +37,34 @@
 
 </br>
 
+## Orden de Ejecución de los Scripts para la creación de la Base de Datos
+
+#### 1)db_indumentaria_DDL.sql
+
+#### 2)db_indumentaria_DML.sql
+
+#### 3)db_indumentaria_QUERIES_SELECT.sql (OPCIONAL)
+
+#### 4)db_indumentaria_QUERIES_INSERT.sql
+
+#### 5)db_indumentaria_QUERIES_UPDATE.sql
+
+#### 6)db_indumentaria_INDEXES.sql
+
+#### 7)db_indumentaria_VIEWS.sql
+
+#### 8)db_indumentaria_PROCEDURES_INSERT.sql
+
+#### 9)db_indumentaria_PROCEDURES_UPDATE.sql
+
+#### 10)db_indumentaria_PROCEDURES_DELETE.sql
+
+#### 11)db_indumentaria_CATALOGS.sql (OPCIONAL)
+
+#### 12)db_indumentaria_TRIGGERS_INSERT.sql
+
+</br>
+
 ## Subir el proyecto al repositorio desde bash 
 
 #### 1)Creamos un nuevo repositorio en GitHub.
