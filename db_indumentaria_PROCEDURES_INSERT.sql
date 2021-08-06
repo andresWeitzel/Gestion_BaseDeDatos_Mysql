@@ -20,6 +20,8 @@ drop procedure if exists SP_insert_log;
 
 drop procedure if exists SP_insert_articulos;
 
+drop procedure if exists SP_insert_accesorios_detalles;
+
 drop procedure if exists SP_insert_articulos_ropa_detalles;
 
 drop procedure if exists SP_insert_articulos_calzados_detalles;
@@ -209,6 +211,117 @@ call SP_insert_log(
 
 
 
+-- ============== INSERTAR ROPA DETALLES ===============
+
+DELIMITER $$
+
+create procedure SP_insert_articulos_ropa_detalles(
+	 param_sp_idArticulo	int	
+	,param_sp_tipo 			varchar(20)
+	,param_sp_usabilidad	varchar(20)
+	,param_sp_talle			varchar(4)
+	,param_sp_temporada		enum('VERANO','INVIERNO')
+	,param_sp_color			varchar(20)
+)
+
+begin 
+	
+	insert into articulos_ropa_detalles (
+		idArticulo
+		,tipo 
+		,usabilidad 
+		,talle 
+		,temporada 
+		,color 
+		)
+	values
+		(
+		 param_sp_idArticulo		
+		,param_sp_tipo 			
+		,param_sp_usabilidad	
+		,param_sp_talle
+		,param_sp_temporada
+		,param_sp_color			
+		);
+
+end
+
+$$
+
+DELIMITER ;
+
+
+
+
+-- === ARTICULO ACCESORIOS DETALLES INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idArticulo= 7 ;
+set @param_sp_tipo='Abrigo';
+set @param_sp_usabilidad='Formal';
+set @param_sp_talle='S';
+set @param_sp_temporada= 'INVIERNO';
+set @param_sp_color= 'Negro';
+
+
+-- Llamamos al procedimiento
+call SP_insert_articulos_ropa_detalles(
+	@param_sp_idArticulo
+	,@param_sp_tipo
+	,@param_sp_usabilidad
+	,@param_sp_talle
+	,@param_sp_temporada
+	,@param_sp_color);
+
+
+
+-- === LOG ARTICULO ROPA DETALLE INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla =last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
+set @param_sp_nombreTabla = 'ARTICULOS_ROPA_DETALLES';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user() ;
+set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
+	);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -267,107 +380,12 @@ call SP_insert_log(
 
 
 
-
-
--- ============== INSERTAR ROPA DETALLES ===============
-
-DELIMITER $$
-
-create procedure SP_insert_articulos_ropa_detalles(
-	 param_sp_idArticulo	int	
-	,param_sp_tipo 			varchar(20)
-	,param_sp_usabilidad	varchar(20)
-	,param_sp_talle			varchar(4)
-	,param_sp_temporada		enum('VERANO','INVIERNO')
-	,param_sp_color			varchar(20)
-)
-
-begin 
-	
-	insert into articulos_ropa_detalles (
-		idArticulo
-		,tipo 
-		,usabilidad 
-		,talle 
-		,temporada 
-		,color 
-		)
-	values
-		(
-		 param_sp_idArticulo		
-		,param_sp_tipo 			
-		,param_sp_usabilidad	
-		,param_sp_talle
-		,param_sp_temporada
-		,param_sp_color			
-		);
-
-end
-
-$$
-
-DELIMITER ;
-
--- === ARTICULO ROPA DETALLE INSERTADO POR PROCEDIMIENTO 01 ===
-
--- Seteamos los parametros a Ingresar
-set @param_sp_idArticulo= 7 ;
-set @param_sp_tipo='Abrigo';
-set @param_sp_usabilidad='Formal';
-set @param_sp_talle='S';
-set @param_sp_temporada= 'INVIERNO';
-set @param_sp_color= 'Negro';
-
-
--- Llamamos al procedimiento
-call SP_insert_articulos_ropa_detalles(
-	@param_sp_idArticulo
-	,@param_sp_tipo
-	,@param_sp_usabilidad
-	,@param_sp_talle
-	,@param_sp_temporada
-	,@param_sp_color);
-
-
-
--- === LOG ARTICULO ROPA DETALLE INSERTADO POR PROCEDIMIENTO 01 ===
-
--- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla =last_insert_id() ;-- id del articulo
-set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
-set @param_sp_nombreTabla = 'ARTICULOS_ROPA_DETALLES';
-set @param_sp_accion = 'INSERT';
-set @param_sp_fechaHora = now();
-set @param_sp_usuario = current_user() ;
-set @param_sp_rolNivel = current_role(); 
-set @param_sp_motorDB = version() ; 
-
-
--- Llamamos al procedimiento
-call SP_insert_log(
-	 @param_sp_idRegistroTabla
-	 ,@param_sp_UuidRegistroTabla
-	 ,@param_sp_nombreTabla
-	 ,@param_sp_accion
-	 ,@param_sp_fechaHora
-	 ,@param_sp_usuario
-	 ,@param_sp_rolNivel
-	 ,@param_sp_motorDB
-	);
-
-
-
-
-
-
-
-
--- ============== INSERTAR CALZADOS DETALLES ===============
+-- ============== INSERTAR ARTICULOS CALZADOS DETALLES ===============
 
 DELIMITER $$
 
 create procedure SP_insert_articulos_calzados_detalles(
-	 param_sp_idArticulo	int 	
+	 param_sp_idArticulo	int	
 	,param_sp_tipo 			varchar(20)
 	,param_sp_usabilidad	varchar(20)
 	,param_sp_numero		char(3)
@@ -388,7 +406,7 @@ begin
 		 param_sp_idArticulo		
 		,param_sp_tipo 			
 		,param_sp_usabilidad	
-		,param_sp_numero		
+		,param_sp_numero
 		,param_sp_color			
 		);
 
@@ -398,14 +416,14 @@ $$
 
 DELIMITER ;
 
--- === ARTICULO CALZADO DETALLE INSERTADO POR PROCEDIMIENTO 01 ===
+-- === ARTICULO CALZADOS DETALLES INSERTADO POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idArticulo= 8 ;
-set @param_sp_tipo='Zapatillas';
-set @param_sp_usabilidad='Deportivo';
-set @param_sp_numero= 30;
-set @param_sp_color= 'Rojo';
+set @param_sp_idArticulo= 7 ;
+set @param_sp_tipo='Zapatos';
+set @param_sp_usabilidad='Formal';
+set @param_sp_numero= 43;
+set @param_sp_color= 'Negro';
 
 
 -- Llamamos al procedimiento
@@ -418,10 +436,10 @@ call SP_insert_articulos_calzados_detalles(
 
 
 
--- === LOG ARTICULO CALZADO DETALLA INSERTADO POR PROCEDIMIENTO 01 ===
+-- === LOG ARTICULO CALZADOS DETALLE INSERTADO POR PROCEDIMIENTO 01 ===
 
 -- Seteamos los parametros a Ingresar
-set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_idRegistroTabla =last_insert_id() ;-- id del articulo
 set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
 set @param_sp_nombreTabla = 'ARTICULOS_CALZADOS_DETALLES';
 set @param_sp_accion = 'INSERT';
@@ -442,6 +460,13 @@ call SP_insert_log(
 	 ,@param_sp_rolNivel
 	 ,@param_sp_motorDB
 	);
+
+
+
+
+
+
+
 
 
 
