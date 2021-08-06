@@ -7,7 +7,7 @@
 
 #### Diagrama Entidad Relación Mysql `db_indumentaria`
 
-![Index app](https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL/blob/master/db_indumentaria/db_indumentaria_DER.png)
+![Index app](https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL/blob/master/db_indumentaria_DER.png)
 
 
 </br>
