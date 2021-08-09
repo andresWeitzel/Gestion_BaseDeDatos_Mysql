@@ -20,7 +20,7 @@ drop procedure if exists SP_insert_log;
 
 drop procedure if exists SP_insert_articulos;
 
-drop procedure if exists SP_insert_accesorios_detalles;
+drop procedure if exists SP_insert_articulos_accesorios_detalles;
 
 drop procedure if exists SP_insert_articulos_ropa_detalles;
 
@@ -211,6 +211,138 @@ call SP_insert_log(
 
 
 
+-- === ARTICULO ACCESORIO  INSERTADO POR PROCEDIMIENTO 02 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_categoria='ACCESORIOS';
+set @param_sp_descripcion='Reloj kuji';
+set @param_sp_precio=5500.00;
+set @param_sp_stock=20;
+set @param_sp_stockMinimo=5;
+set @param_sp_stockMaximo=30;
+set @param_sp_costo=3100.00;
+
+
+-- Llamamos al procedimiento
+call SP_insert_articulos(
+	@param_sp_categoria
+	,@param_sp_descripcion
+	,@param_sp_precio
+	,@param_sp_stock
+	,@param_sp_stockMinimo
+	,@param_sp_stockMaximo
+	,@param_sp_costo);
+
+
+
+
+-- ========== LOG ARTICULOS ACCESORIO INSERTADOS POR PROCEDIMIENTO 02 ==========
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
+set @param_sp_nombreTabla = 'ARTICULOS';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user() ;
+set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
+	);
+
+
+
+
+
+-- ============== INSERTAR ARTICULOS ACCESORIOS DETALLES ===============
+
+DELIMITER $$
+
+create procedure SP_insert_articulos_accesorios_detalles(
+	 param_sp_idArticulo 		int
+	,param_sp_tipo				varchar(25)
+	,param_sp_color				varchar(25)
+)
+
+begin 
+	
+	insert into articulos_accesorios_detalles(
+		idArticulo
+		,tipo 
+		,color 
+		)
+	values
+		(
+		param_sp_idArticulo
+		,param_sp_tipo
+		,param_sp_color
+		);
+
+end
+
+$$
+
+DELIMITER ;
+
+-- === ARTICULO ACCESORIO DETALLE INSERTADO POR PROCEDIMIENTO 01 ===
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idArticulo=11;
+set @param_sp_tipo='Reloj Kujiol';
+set @param_sp_color='morado';
+
+
+-- Llamamos al procedimiento
+call SP_insert_articulos_accesorios_detalles(
+	@param_sp_idArticulo
+	,@param_sp_tipo
+	,@param_sp_color);
+
+
+
+
+-- ========== LOG ARTICULOS ACCESORIO DETALLE INSERTADOS POR PROCEDIMIENTO 01 ==========
+
+-- Seteamos los parametros a Ingresar
+set @param_sp_idRegistroTabla = last_insert_id() ;-- id del articulo
+set @param_sp_UuidRegistroTabla = uuid() ;-- id del articulo unico
+set @param_sp_nombreTabla = 'ARTICULOS_ACCESORIOS_DETALLES';
+set @param_sp_accion = 'INSERT';
+set @param_sp_fechaHora = now();
+set @param_sp_usuario = current_user() ;
+set @param_sp_rolNivel = current_role(); 
+set @param_sp_motorDB = version() ; 
+
+
+-- Llamamos al procedimiento
+call SP_insert_log(
+	 @param_sp_idRegistroTabla
+	 ,@param_sp_UuidRegistroTabla
+	 ,@param_sp_nombreTabla
+	 ,@param_sp_accion
+	 ,@param_sp_fechaHora
+	 ,@param_sp_usuario
+	 ,@param_sp_rolNivel
+	 ,@param_sp_motorDB
+	);
+
+
+
+
+
+
+
 -- ============== INSERTAR ROPA DETALLES ===============
 
 DELIMITER $$
@@ -299,28 +431,6 @@ call SP_insert_log(
 	 ,@param_sp_rolNivel
 	 ,@param_sp_motorDB
 	);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
