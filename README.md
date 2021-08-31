@@ -67,9 +67,15 @@ o Eliminación de Registros.
 
 
 
+
 <hr>
 
-| **Tecnologías** | **Versión** | **Finalidad** |               
+## Más Información
+
+</br>
+
+
+| **Tecnologías Empleadas** | **Versión** | **Finalidad** |               
 | ------------- | ------------- | ------------- |
 | Git Bash | 2.29.1.windows.1  | Control de Versiones |
 | XAMPP | 3.2.2  | Paquete de Servidores |
@@ -86,11 +92,6 @@ o Eliminación de Registros.
 
 </br>
 
-<hr>
-
-## Más Información
-
-</br>
 
 ## Orden de Ejecución de los Scripts para la creación de la Base de Datos
 
