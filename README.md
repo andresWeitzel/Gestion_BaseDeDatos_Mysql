@@ -11,7 +11,7 @@ o Eliminación de Registros.
 
 </br>
 
-#### Diagrama Entidad Relación Mysql `db_indumentaria`
+#### Diagrama Entidad Relación  `db_indumentaria`
 
 ![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/db_indumentaria_DER.png)
 
@@ -19,14 +19,51 @@ o Eliminación de Registros.
 
 </br>
 
-#### Tablas de la Base de Datos Desarrollada
+#### Vista General de Tablas
 
 ![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/01_tablas.png)
 
 </br>
 
+#### Vista General de una de las Tablas
+
+![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/02_tablaArticulos.png)
+
+</br>
+
+#### Vista General de Vistas / VIEWS
+
+![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/03_vistas.png)
+
+</br>
 
 
+#### Vista General de Procedimientos Almacenados / STORED PROCEDURES
+
+![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/04_Procedimientos.png)
+
+</br>
+
+
+#### Vista General de Disparadores / TRIGGERS
+
+![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/05_triggers.png)
+
+</br>
+
+
+#### Vista General de Registros de Usuario (Actualizaciones) / LOGS UPDATE
+
+![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/06_logsUpdate.png)
+
+</br>
+
+
+#### Vista General de Registros de Usuario (Inserciones) / LOGS INSERT
+
+![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/07_logsInsert.png)
+
+</br>
 
 
 
