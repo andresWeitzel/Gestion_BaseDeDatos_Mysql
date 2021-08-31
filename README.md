@@ -1,6 +1,7 @@
-# GestionDB_Mysql_PostgreSQL
+# Gestión_BaseDeDatos_Mysql
 
-*Material de las prácticas y proyectos acerca de Gestión de Base de Datos*
+*Modelado, Desarrollo y Gestión de una Base de Datos con el Motor Mysql
+
 
 
 </br>
@@ -63,6 +64,10 @@
 
 #### 12)db_indumentaria_TRIGGERS_INSERT.sql
 
+#### 13)db_indumentaria_TRIGGERS_UPDATE.sql
+
+#### 14)db_indumentaria_TRIGGERS_DELETE.sql
+
 </br>
 
 ## Subir el proyecto al repositorio desde bash 
@@ -107,4 +112,5 @@
 * git push https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL
 
 </br>
+
 
