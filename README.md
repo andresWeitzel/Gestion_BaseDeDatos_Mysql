@@ -1,17 +1,35 @@
 # Gestión_BaseDeDatos_Mysql
 
-*Modelado, Desarrollo y Gestión de una Base de Datos con el Motor Mysql
-
+* Modelado, Desarrollo y Gestión de una Base de Datos con el Motor Mysql.
+En Este Proyecto se pone en práctica el Modelado, Diseño y Gestión desde Cero de una db específicamente de Indumentaria.
+La Normalización de la misma consta de tablas de artículos independientes (detalles) ,según el tipo, junto con los detalles de facturas de Clientes.
+En el Diseño de esta se incluyen las respectivas CONSTRAINTS (FK, UNIQUE Y CHECK), PK y los Enumerados Respectivos a modo de Restricción y posibles validaciones futuras.
+Se desarrollan las respectivas Consultas(Queries) dentro del Diseño, para Testing y  para la Posterior Gestión.
+Para la Gestión de la db se implementan los Procedimientos Almacenados, los Triggers, Indices, Vistas y Catalogos.
+Se lleva a cabo un Sistema de Logs de Usuario en el cúal está directamente relacionado con los puntos anteriores y a su vez el manejo de Inserciones, Actualizaciones 
+o Eliminación de Registros.
 
 
 </br>
 
 #### Diagrama Entidad Relación Mysql `db_indumentaria`
 
-![Index app](https://github.com/andresWeitzel/GestionDB_Mysql_PostgreSQL/blob/master/db_indumentaria_DER.png)
-
+![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/db_indumentaria_DER.png)
 
 </br>
+
+</br>
+
+#### Tablas de la Base de Datos Desarrollada
+
+![Index app](https://github.com/andresWeitzel/Gestion_BaseDeDatos_Mysql/blob/master/documentation/01_tablas.png)
+
+</br>
+
+
+
+
+
 
 <hr>
 
