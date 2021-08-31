@@ -1,7 +1,6 @@
 # Gestión_BaseDeDatos_Mysql
 
-* Modelado, Desarrollo y Gestión de una Base de Datos con el Motor Mysql.
-* En Este Proyecto se pone en práctica el Modelado, Diseño y Gestión desde Cero de una db específicamente de Indumentaria.
+* En Este Proyecto se pone en práctica el Modelado, Diseño y Gestión desde Cero de una db específicamente de Indumentaria con el Motor Mysql.
 * La Normalización de la misma consta de tablas de artículos independientes (detalles) ,según el tipo, junto con los detalles de facturas de Clientes.
 * En el Diseño de esta se incluyen las respectivas CONSTRAINTS (FK, UNIQUE Y CHECK), PK y los Enumerados Respectivos a modo de Restricción y posibles validaciones futuras.
 * Se desarrollan las respectivas Consultas(Queries) dentro del Diseño, para Testing y  para la Posterior Gestión.
